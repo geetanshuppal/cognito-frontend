@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 
-import { useValidPassword, useValidUsername } from '../../hooks/useAuthHooks'
-import { Password, Username } from '../../components/authComponents'
+import { useValidEmail, useValidPassword, useValidUsername } from '../../hooks/useAuthHooks'
+import { Email, Password, Username } from '../../components/authComponents'
 
 import { AuthContext } from '../../contexts/authContext'
 
@@ -29,16 +29,21 @@ const SignIn: React.FunctionComponent<{}> = () => {
   const { username, setUsername, usernameIsValid } = useValidUsername('')
   const { password, setPassword, passwordIsValid } = useValidPassword('')
   const [error, setError] = useState('')
-
-  const isValid = !usernameIsValid || username.length === 0 || !passwordIsValid || password.length === 0
+  const { email, setEmail, emailIsValid } = useValidEmail('')
 
   const history = useHistory()
 
+  const isValid =
+  !emailIsValid ||
+  email.length === 0 ||
+  !passwordIsValid ||
+  password.length === 0 ||
+  !passwordIsValid || password.length === 0
   const authContext = useContext(AuthContext)
 
   const signInClicked = async () => {
     try {
-      //await authContext.signInWithEmail(username, password)
+      await authContext.signInWithEmail(email, password)
       history.push('UsersList')
     } catch (err: any) {
       if (err.code === 'UserNotConfirmedException') {
@@ -66,7 +71,7 @@ const SignIn: React.FunctionComponent<{}> = () => {
             {/* Sign In Form */}
             <Box width="80%" m={1}>
               {/* <Email emailIsValid={emailIsValid} setEmail={setEmail} /> */}
-              <Username usernameIsValid={usernameIsValid} setUsername={setUsername} />{' '}
+              <Email emailIsValid={emailIsValid} setEmail={setEmail} />
             </Box>
             <Box width="80%" m={1}>
               <Password label="Password" passwordIsValid={passwordIsValid} setPassword={setPassword} />

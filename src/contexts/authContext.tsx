@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 
 import * as cognito from '../libs/cognito'
+import { signin, signup } from '../services/apiService';
 
 export enum AuthStatus {
   Loading,
@@ -66,16 +67,18 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
         setAuthStatus(AuthStatus.SignedOut)
       }
     }
-    getSessionInfo()
+    setAuthStatus(AuthStatus.SignedOut)
+    // getSessionInfo()
   }, [setAuthStatus, authStatus])
 
   if (authStatus === AuthStatus.Loading) {
     return null
   }
 
-  async function signInWithEmail(username: string, password: string) {
+  async function signInWithEmail(email: string, password: string) {
     try {
-      await cognito.signInWithEmail(username, password)
+      const response = await signin({email, password})
+      console.log("signInResponse", response);
       setAuthStatus(AuthStatus.SignedIn)
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut)
@@ -83,22 +86,23 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     }
   }
 
-  async function signUpWithEmail(username: string, email: string, password: string) {
+  async function signUpWithEmail(name: string, email: string, password: string) {
     try {
-      await cognito.signUpUserWithEmail(username, email, password)
+     const res =  await signup({name, email, password})
+     return res;
     } catch (err) {
       throw err
     }
   }
 
   function signOut() {
-    cognito.signOut()
+    // cognito.signOut()
     setAuthStatus(AuthStatus.SignedOut)
   }
 
   async function verifyCode(username: string, code: string) {
     try {
-      await cognito.verifyCode(username, code)
+      // await cognito.verifyCode(username, code)
     } catch (err) {
       throw err
     }
@@ -106,8 +110,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function getSession() {
     try {
-      const session = await cognito.getSession()
-      return session
+      // const session = await cognito.getSession()
+      return null
     } catch (err) {
       throw err
     }
@@ -115,8 +119,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function getAttributes() {
     try {
-      const attr = await cognito.getAttributes()
-      return attr
+      // const attr = await cognito.getAttributes()
+      return null
     } catch (err) {
       throw err
     }
@@ -124,8 +128,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function setAttribute(attr: any) {
     try {
-      const res = await cognito.setAttribute(attr)
-      return res
+      // const res = await cognito.setAttribute(attr)
+      return null
     } catch (err) {
       throw err
     }
@@ -133,7 +137,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function sendCode(username: string) {
     try {
-      await cognito.sendCode(username)
+      // await cognito.sendCode(username)
     } catch (err) {
       throw err
     }
@@ -141,7 +145,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function forgotPassword(username: string, code: string, password: string) {
     try {
-      await cognito.forgotPassword(username, code, password)
+      // await cognito.forgotPassword(username, code, password)
     } catch (err) {
       throw err
     }
@@ -149,7 +153,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function changePassword(oldPassword: string, newPassword: string) {
     try {
-      await cognito.changePassword(oldPassword, newPassword)
+      // await cognito.changePassword(oldPassword, newPassword)
     } catch (err) {
       throw err
     }
@@ -161,14 +165,14 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     attrInfo,
     signUpWithEmail,
     signInWithEmail,
-    signOut,
-    verifyCode,
-    getSession,
-    sendCode,
-    forgotPassword,
-    changePassword,
-    getAttributes,
-    setAttribute,
+    // signOut,
+    // verifyCode,
+    // getSession,
+    // sendCode,
+    // forgotPassword,
+    // changePassword,
+    // getAttributes,
+    // setAttribute,
   }
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>

@@ -5,7 +5,9 @@ const API_BASE_URL = 'https://llqwp3a2sg.execute-api.us-east-2.amazonaws.com/sta
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json,text/plain, multipart/form-data,application/x-www-form-urlencoded',
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Credentials": true,
     },
 });
 
