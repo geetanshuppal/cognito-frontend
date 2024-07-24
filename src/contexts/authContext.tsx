@@ -77,8 +77,10 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function signInWithEmail(email: string, password: string) {
     try {
-      const response = await signin({email, password})
-      console.log("signInResponse", response);
+      const res = await signin({email, password})
+      console.log("signInResponse", res);
+      window.localStorage.setItem('accessToken', `${res?.response?.token?.accessToken}`)
+      window.localStorage.setItem('refreshToken', `${res?.response?.session?.refreshToken}`)
       setAuthStatus(AuthStatus.SignedIn)
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut)

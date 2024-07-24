@@ -17,6 +17,7 @@ import ChangePassword from './routes/auth/changePassword'
 import Landing from './routes/landing'
 import Home from './routes/home'
 import usersListPage from './routes/usersListPage'
+import { UserProvider } from './contexts/userContext'
 
 let lightTheme = createMuiTheme({
   palette: {
@@ -57,7 +58,9 @@ const App: React.FunctionComponent = () => (
         <MainRoute />
       </AuthIsSignedIn>
       <AuthIsNotSignedIn>
+        <UserProvider>
         <SignInRoute />
+        </UserProvider>
       </AuthIsNotSignedIn>
     </AuthProvider>
   </ThemeProvider>

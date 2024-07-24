@@ -59,7 +59,7 @@ const UsersList: React.FunctionComponent<{}> = () => {
                                     {users?.map((user, index) => (
                                         <TableRow key={index}>
                                             <TableCell component="th" scope="row">
-                                                {user.firstName}
+                                                {user.name}
                                             </TableCell>
                                             <TableCell align="right">{user.lastName}</TableCell>
                                             <TableCell align="right">{user.email}</TableCell>
