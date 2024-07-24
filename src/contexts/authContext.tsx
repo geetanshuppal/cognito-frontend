@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 
 import * as cognito from '../libs/cognito'
-import { signin, signup } from '../services/apiService';
+import { signin, signup, verifyEmail } from '../services/apiService';
 
 export enum AuthStatus {
   Loading,
@@ -102,9 +102,10 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     setAuthStatus(AuthStatus.SignedOut)
   }
 
-  async function verifyCode(username: string, code: string) {
+  async function verifyCode(email: string, codeEmailVerify: string) {
     try {
-      // await cognito.verifyCode(username, code)
+      await verifyEmail({email, codeEmailVerify})
+      // code: "ExpiredCodeException",message: "Invalid code provided, please request a code again."name: "ExpiredCodeException"statusCode: 422
     } catch (err) {
       throw err
     }
@@ -168,7 +169,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     signUpWithEmail,
     signInWithEmail,
     // signOut,
-    // verifyCode,
+    verifyCode,
     // getSession,
     // sendCode,
     // forgotPassword,
