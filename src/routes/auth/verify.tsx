@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 
 import { useValidCode, useValidEmail } from '../../hooks/useAuthHooks'
 import { Code, Email } from '../../components/authComponents'
@@ -29,6 +31,7 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
   const { email, setEmail, emailIsValid } = useValidEmail('')
   const { code, setCode, codeIsValid } = useValidCode('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
 
   const isValid =
@@ -42,13 +45,17 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
 
   const sendClicked = async () => {
     try {
+      setLoading(true);
       const res = await authContext.verifyCode(email, code)
       if(res.statusCode == 200){
         history.push('signin')
+        setLoading(false);
         return;
       }
       setError(res?.response?.message || "something went wrong!!")
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       setError('Invalid Code')
     }
   }
@@ -94,7 +101,7 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
                 </Box>
                 <Box m={1}>
                   <Button disabled={isValid} color="primary" variant="contained" onClick={sendClicked}>
-                    Send
+                  {loading && <CircularProgress size={15} color="secondary" />} Send
                   </Button>
                 </Box>
               </Grid>

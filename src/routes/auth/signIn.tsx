@@ -13,6 +13,7 @@ import { useValidEmail, useValidPassword } from '../../hooks/useAuthHooks'
 import { Email, Password } from '../../components/authComponents'
 
 import { AuthContext } from '../../contexts/authContext'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles({
   root: {
@@ -28,6 +29,7 @@ const SignIn: React.FunctionComponent<{}> = () => {
 
   const { password, setPassword, passwordIsValid } = useValidPassword('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const { email, setEmail, emailIsValid } = useValidEmail('')
 
   const history = useHistory()
@@ -42,24 +44,23 @@ const SignIn: React.FunctionComponent<{}> = () => {
 
   const signInClicked = async () => {
     try {
+      setLoading(true);
       const res = await authContext.signInWithEmail(email, password)
       if(res?.statusCode == 200){
         history.push('UsersList')
       } else{
         setError(res.response)
       }
+      setLoading(false);
     } catch (err: any) {
+      setLoading(false);
       if (err.code === 'UserNotConfirmedException') {
         history.push('verify')
       } else {
         setError(err.message)
       }
     }
-  }
-
-  const passwordResetClicked = async () => {
-    history.push('requestcode')
-  }
+  } 
 
   return (
     <Grid className={classes.root} container direction="row" justify="center" alignItems="center">
@@ -73,18 +74,10 @@ const SignIn: React.FunctionComponent<{}> = () => {
 
             {/* Sign In Form */}
             <Box width="80%" m={1}>
-              {/* <Email emailIsValid={emailIsValid} setEmail={setEmail} /> */}
               <Email emailIsValid={emailIsValid} setEmail={setEmail} />
             </Box>
             <Box width="80%" m={1}>
               <Password label="Password" passwordIsValid={passwordIsValid} setPassword={setPassword} />
-              <Grid container direction="row" justify="flex-start" alignItems="center">
-                {/* <Box onClick={passwordResetClicked} mt={2}> */}
-                  {/* <Typography className={classes.hover} variant="body2"> */}
-                    {/* Forgot Password? */}
-                  {/* </Typography> */}
-                {/* </Box> */}
-              </Grid>
             </Box>
 
             {/* Error */}
@@ -104,7 +97,7 @@ const SignIn: React.FunctionComponent<{}> = () => {
                 </Box>
                 <Box m={1}>
                   <Button disabled={isValid} color="primary" variant="contained" onClick={signInClicked}>
-                    Sign In
+                  {loading && <CircularProgress size={15} color="secondary" />} Sign In
                   </Button>
                 </Box>
               </Grid>

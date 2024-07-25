@@ -8,9 +8,6 @@ import SignIn from './routes/auth/signIn'
 import SignUp from './routes/auth/signUp'
 import VerifyCode from './routes/auth/verify'
 import RequestCode from './routes/auth/requestCode'
-import ForgotPassword from './routes/auth/forgotPassword'
-import ChangePassword from './routes/auth/changePassword'
-import Home from './routes/home'
 import usersListPage from './routes/usersListPage'
 import { UserProvider } from './contexts/userContext'
 
@@ -30,28 +27,17 @@ const SignInRoute: React.FunctionComponent = () => (
       <Route path="/signup" component={SignUp} />
       <Route path="/verify" component={VerifyCode} />
       <Route path="/requestcode" component={RequestCode} />
-      <Route path="/forgotpassword" component={ForgotPassword} />
       <Route path="/" component={SignIn} />
     </Switch>
   </Router>
 )
 
-const MainRoute: React.FunctionComponent = () => (
-  <Router>
-    <Switch>
-      <Route path="/changepassword" component={ChangePassword} />
-      <Route path="/" component={Home} />
-    </Switch>
-  </Router>
-)
+ 
 
 const App: React.FunctionComponent = () => (
   <ThemeProvider theme={lightTheme}>
     <CssBaseline />
     <AuthProvider>
-      <AuthIsSignedIn>
-        <MainRoute />
-      </AuthIsSignedIn>
       <AuthIsNotSignedIn>
         <UserProvider>
         <SignInRoute />

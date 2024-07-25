@@ -41,7 +41,6 @@ export default function RequestCode() {
 
   const sendCodeClicked = async () => {
     try {
-      await authContext.sendCode(username)
       setResetSent(true)
     } catch (err) {
       setError('Unknown user')
