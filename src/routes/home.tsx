@@ -8,11 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-import GitHubIcon from '@material-ui/icons/GitHub'
 import Link from '@material-ui/core/Link'
-
-import logoImage from './logo.png'
-
 import { AuthContext } from '../contexts/authContext'
 
 const useStyles = makeStyles((theme) => ({
@@ -54,16 +50,14 @@ export default function Home() {
         <Box className={classes.hero} p={4}>
           <Grid className={classes.root} container direction="column" justify="center" alignItems="center">
             <Box m={2}>
-              <img src={logoImage} width={224} height={224} alt="logo" />
             </Box>
             <Box m={2}>
-              <Link underline="none" color="inherit" href="https://github.com/dbroadhurst/aws-cognito-react">
+              <Link underline="none" color="inherit">
                 <Grid container direction="row" justify="center" alignItems="center">
                   <Box mr={3}>
-                    <GitHubIcon fontSize="large" />
                   </Box>
                   <Typography className={classes.title} variant="h3">
-                    AWS Cognito Starter Home
+                    AWS Cognito Home
                   </Typography>
                 </Grid>
               </Link>

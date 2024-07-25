@@ -6,6 +6,7 @@ import { AuthContext } from './authContext';
 
 // Define the shape of the user data
 interface User {
+    UserStatus: ReactNode;
     name?:string;
     firstName?: string;
     lastName?: string;
@@ -19,8 +20,6 @@ interface UserContextType {
     loading: boolean;
     error: string | null;
 }
-
-const API_BASE_URL = 'https://llqwp3a2sg.execute-api.us-east-2.amazonaws.com/stage/api';
 
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -38,9 +37,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
     useEffect(() => {
         const fetchUsers = async () => {
+            console.log(process.env);
+            debugger
             try {
                 const accessToken = window.localStorage.getItem('accessToken')
-                const response = await axios.get(`${API_BASE_URL}/getUsers`,{
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/getUsers`,{
                     headers: {
                         Authorization: `${accessToken}`
                     }

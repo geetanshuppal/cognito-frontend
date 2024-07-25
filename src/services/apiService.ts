@@ -1,9 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
-const API_BASE_URL = 'https://llqwp3a2sg.execute-api.us-east-2.amazonaws.com/stage/api';
-
 const api = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: process.env.REACT_APP_API_URL,
     headers: {
         'Content-Type': 'application/json'
     },

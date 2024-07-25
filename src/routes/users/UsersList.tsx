@@ -11,7 +11,6 @@ const UsersList: React.FunctionComponent<{}> = () => {
     }
 
     const { users = [], loading, error } = userContext;
-    debugger
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -22,7 +21,6 @@ const UsersList: React.FunctionComponent<{}> = () => {
     
     return (
         <Grid container spacing={2}>
-            {/* Navigation Header */}
             <Grid item xs={12}>
                 <AppBar position="static">
                     <Toolbar>
@@ -35,8 +33,6 @@ const UsersList: React.FunctionComponent<{}> = () => {
                     </Toolbar>
                 </AppBar>
             </Grid>
-
-            {/* Table in Card */}
             <Grid item xs={12}>
                 <Card>
                     <CardContent>
@@ -48,11 +44,9 @@ const UsersList: React.FunctionComponent<{}> = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>First Name</TableCell>
-                                        <TableCell align="right">Last Name</TableCell>
-                                        <TableCell align="right">Email</TableCell>
-                                        <TableCell align="right">Mobile Number</TableCell>
-                                        <TableCell align="right">Role</TableCell>
-                                        <TableCell align="right">Action</TableCell>
+                                        <TableCell>Email</TableCell>
+                                        <TableCell>UserStatus</TableCell>
+                                        <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -61,11 +55,9 @@ const UsersList: React.FunctionComponent<{}> = () => {
                                             <TableCell component="th" scope="row">
                                                 {user.name}
                                             </TableCell>
-                                            <TableCell align="right">{user.lastName}</TableCell>
-                                            <TableCell align="right">{user.email}</TableCell>
-                                            <TableCell align="right">{user.mobileNumber}</TableCell>
-                                            <TableCell align="right">{user.role}</TableCell>
-                                            <TableCell align="right">
+                                            <TableCell>{user.email}</TableCell>
+                                            <TableCell>{user.UserStatus}</TableCell>
+                                            <TableCell>
                                                 <Button variant="contained" color="primary">
                                                     Edit
                                                 </Button>
