@@ -35,7 +35,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const {authStatus} = authContext
-// https://llqwp3a2sg.execute-api.us-east-2.amazonaws.com/stage/api/getUsers
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -46,7 +45,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
                         Authorization: `${accessToken}`
                     }
                 });  
-                setUsers(response?.data?.response);
+                if(response?.data?.statusCode == 200){
+                    setUsers(response?.data?.response);
+                    return
+                }
+                setError(response?.data?.response);
             } catch (err) {
                 setError('Failed to fetch users');
             } finally {

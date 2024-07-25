@@ -10,8 +10,8 @@ const UsersList: React.FunctionComponent<{}> = () => {
         return <div>Loading...</div>;
     }
 
-    const { users, loading, error } = userContext;
-
+    const { users = [], loading, error } = userContext;
+    debugger
     if (loading) {
         return <div>Loading...</div>;
     }
