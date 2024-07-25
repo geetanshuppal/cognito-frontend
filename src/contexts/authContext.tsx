@@ -50,25 +50,25 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
   const [attrInfo, setAttrInfo] = useState([])
 
   useEffect(() => {
-    async function getSessionInfo() {
-      try {
-        const session: any = await getSession()
-        setSessionInfo({
-          accessToken: session.accessToken.jwtToken,
-          refreshToken: session.refreshToken.token,
-        })
-        window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`)
-        window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`)
-        await setAttribute({ Name: 'website', Value: 'https://github.com/dbroadhurst/aws-cognito-react' })
-        const attr: any = await getAttributes()
-        setAttrInfo(attr)
-        setAuthStatus(AuthStatus.SignedIn)
-      } catch (err) {
-        setAuthStatus(AuthStatus.SignedOut)
-      }
-    }
+    // async function getSessionInfo() {
+    //   try {
+    //     const session: any = await getSession()
+    //     setSessionInfo({
+    //       accessToken: session.accessToken.jwtToken,
+    //       refreshToken: session.refreshToken.token,
+    //     })
+    //     window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`)
+    //     window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`)
+    //     await setAttribute({ Name: 'website', Value: 'https://github.com/dbroadhurst/aws-cognito-react' })
+    //     const attr: any = await getAttributes()
+    //     setAttrInfo(attr)
+    //     setAuthStatus(AuthStatus.SignedIn)
+    //   } catch (err) {
+    //     setAuthStatus(AuthStatus.SignedOut)
+    //   }
+    // }
     setAuthStatus(AuthStatus.SignedOut)
-    // getSessionInfo()
+    // // getSessionInfo()
   }, [setAuthStatus, authStatus])
 
   if (authStatus === AuthStatus.Loading) {
@@ -101,65 +101,14 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
   }
 
   function signOut() {
-    // cognito.signOut()
+    window.localStorage.setItem('accessToken', ``)
+    window.localStorage.setItem('refreshToken', ``)
     setAuthStatus(AuthStatus.SignedOut)
   }
 
   async function verifyCode(email: string, codeEmailVerify: string) {
     try {
       await verifyEmail({email, codeEmailVerify})
-      // code: "ExpiredCodeException",message: "Invalid code provided, please request a code again."name: "ExpiredCodeException"statusCode: 422
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function getSession() {
-    try {
-      // const session = await cognito.getSession()
-      return null
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function getAttributes() {
-    try {
-      // const attr = await cognito.getAttributes()
-      return null
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function setAttribute(attr: any) {
-    try {
-      // const res = await cognito.setAttribute(attr)
-      return null
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function sendCode(username: string) {
-    try {
-      // await cognito.sendCode(username)
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function forgotPassword(username: string, code: string, password: string) {
-    try {
-      // await cognito.forgotPassword(username, code, password)
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function changePassword(oldPassword: string, newPassword: string) {
-    try {
-      // await cognito.changePassword(oldPassword, newPassword)
     } catch (err) {
       throw err
     }
@@ -171,14 +120,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     attrInfo,
     signUpWithEmail,
     signInWithEmail,
-    // signOut,
     verifyCode,
-    // getSession,
-    // sendCode,
-    // forgotPassword,
-    // changePassword,
-    // getAttributes,
-    // setAttribute,
+    signOut
   }
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>

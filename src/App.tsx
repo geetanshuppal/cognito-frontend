@@ -11,7 +11,6 @@ import VerifyCode from './routes/auth/verify'
 import RequestCode from './routes/auth/requestCode'
 import ForgotPassword from './routes/auth/forgotPassword'
 import ChangePassword from './routes/auth/changePassword'
-import Landing from './routes/landing'
 import Home from './routes/home'
 import usersListPage from './routes/usersListPage'
 import { UserProvider } from './contexts/userContext'
@@ -33,7 +32,7 @@ const SignInRoute: React.FunctionComponent = () => (
       <Route path="/verify" component={VerifyCode} />
       <Route path="/requestcode" component={RequestCode} />
       <Route path="/forgotpassword" component={ForgotPassword} />
-      <Route path="/" component={Landing} />
+      <Route path="/" component={SignIn} />
     </Switch>
   </Router>
 )

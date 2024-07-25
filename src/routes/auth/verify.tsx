@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 
-import { useValidCode, useValidUsername } from '../../hooks/useAuthHooks'
-import { Code, Username } from '../../components/authComponents'
+import { useValidCode, useValidEmail, useValidUsername } from '../../hooks/useAuthHooks'
+import { Code, Email, Username } from '../../components/authComponents'
 
 import { AuthContext } from '../../contexts/authContext'
 
@@ -26,11 +26,15 @@ const useStyles = makeStyles({
 const VerifyCode: React.FunctionComponent<{}> = () => {
   const classes = useStyles()
 
-  const { username, setUsername, usernameIsValid } = useValidUsername('')
+  const { email, setEmail, emailIsValid } = useValidEmail('')
   const { code, setCode, codeIsValid } = useValidCode('')
   const [error, setError] = useState('')
 
-  const isValid = !usernameIsValid || username.length === 0 || !codeIsValid || code.length === 0
+
+  const isValid =
+    !emailIsValid ||
+    email.length === 0 ||
+     !codeIsValid || code.length === 0
 
   const history = useHistory()
 
@@ -38,7 +42,7 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
 
   const sendClicked = async () => {
     try {
-      await authContext.verifyCode(username, code)
+      await authContext.verifyCode(email, code)
       history.push('signin')
     } catch (err) {
       setError('Invalid Code')
@@ -61,8 +65,7 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
 
             {/* Sign In Form */}
             <Box width="80%" m={1}>
-              {/* <Email emailIsValid={emailIsValid} setEmail={setEmail} /> */}
-              <Username usernameIsValid={usernameIsValid} setUsername={setUsername} />{' '}
+              <Email emailIsValid={emailIsValid} setEmail={setEmail} />
             </Box>
             <Box width="80%" m={1}>
               <Code codeIsValid={codeIsValid} setCode={setCode} />
