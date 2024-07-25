@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'

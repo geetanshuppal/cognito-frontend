@@ -79,6 +79,9 @@ const SignUp: React.FunctionComponent<{}> = () => {
         <Password label="Confirm Password" passwordIsValid={passwordConfirmIsValid} setPassword={setPasswordConfirm} />
       </Box>
       <Box mt={2}>
+       
+      </Box>
+      <Box mt={2}>
         <Typography color="error" variant="body2">
           {error}
         </Typography>

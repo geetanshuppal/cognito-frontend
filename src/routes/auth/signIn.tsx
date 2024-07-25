@@ -81,11 +81,11 @@ const SignIn: React.FunctionComponent<{}> = () => {
             <Box width="80%" m={1}>
               <Password label="Password" passwordIsValid={passwordIsValid} setPassword={setPassword} />
               <Grid container direction="row" justify="flex-start" alignItems="center">
-                <Box onClick={passwordResetClicked} mt={2}>
-                  <Typography className={classes.hover} variant="body2">
-                    Forgot Password?
-                  </Typography>
-                </Box>
+                {/* <Box onClick={passwordResetClicked} mt={2}> */}
+                  {/* <Typography className={classes.hover} variant="body2"> */}
+                    {/* Forgot Password? */}
+                  {/* </Typography> */}
+                {/* </Box> */}
               </Grid>
             </Box>
 

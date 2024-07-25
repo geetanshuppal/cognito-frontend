@@ -31,6 +31,7 @@ export const Password: React.FunctionComponent<{
       variant="outlined"
       label={passwordIsValid ? label : 'Invalid Password '}
       error={!passwordIsValid}
+      helperText = "Must include 1 number, 1 special character, 1 uppercase letter, and 1 lowercase letter."
       onChange={(evt: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPassword(evt.target.value)
       }}
