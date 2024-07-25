@@ -37,8 +37,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            console.log(process.env);
-            debugger
             try {
                 const accessToken = window.localStorage.getItem('accessToken')
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/getUsers`,{
