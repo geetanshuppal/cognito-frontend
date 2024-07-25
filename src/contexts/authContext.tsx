@@ -59,6 +59,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
       if(res.statusCode==200){
         window.localStorage.setItem('accessToken', `${res?.response?.token?.accessToken}`)
         window.localStorage.setItem('refreshToken', `${res?.response?.session?.refreshToken}`)
+        window.localStorage.setItem('isAdmin', `${res?.response?.scope.includes('Admins')?'true':''}`)
         setAuthStatus(AuthStatus.SignedIn)
       }
       return res;
@@ -80,7 +81,9 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
   function signOut() {
     window.localStorage.setItem('accessToken', ``)
     window.localStorage.setItem('refreshToken', ``)
+    window.localStorage.setItem('isAdmin','');
     setAuthStatus(AuthStatus.SignedOut)
+    
   }
 
   async function verifyCode(email: string, codeEmailVerify: string) {

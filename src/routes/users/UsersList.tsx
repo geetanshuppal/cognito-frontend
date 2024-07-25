@@ -2,10 +2,14 @@ import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { UserContext } from '../../contexts/userContext';
-
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import { AuthContext } from '../../contexts/authContext';
+import { useHistory } from 'react-router-dom';
 const UsersList: React.FunctionComponent<{}> = () => {
     const userContext = useContext(UserContext);
-
+    const authContext = useContext(AuthContext);
+    const history = useHistory();
+    
     if (!userContext) {
         return <div>Loading...</div>;
     }
@@ -18,6 +22,12 @@ const UsersList: React.FunctionComponent<{}> = () => {
     if (error) {
         return <div>{error}</div>;
     }
+    const isAdminUser = localStorage.getItem("isAdmin");
+
+    const onLogoutCLicked = () => {
+        history.push("/signin");
+        authContext.signOut()
+      }
     
     return (
         <Grid container spacing={2}>
@@ -27,10 +37,14 @@ const UsersList: React.FunctionComponent<{}> = () => {
                         <IconButton edge="start" color="inherit" aria-label="menu">
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6">
+                        <Typography variant="h6" style={{ flexGrow: 1 }}>
                             Users Management
                         </Typography>
+                        <IconButton edge="end" color="inherit" aria-label="menu" onClick={onLogoutCLicked}>
+                            <ExitToApp />
+                        </IconButton>
                     </Toolbar>
+                    
                 </AppBar>
             </Grid>
             <Grid item xs={12}>
@@ -58,7 +72,7 @@ const UsersList: React.FunctionComponent<{}> = () => {
                                             <TableCell>{user.email}</TableCell>
                                             <TableCell>{user.UserStatus}</TableCell>
                                             <TableCell>
-                                                <Button variant="contained" color="primary">
+                                                <Button variant="contained" disabled={isAdminUser?true:false} color="primary">
                                                     Edit
                                                 </Button>
                                             </TableCell>
