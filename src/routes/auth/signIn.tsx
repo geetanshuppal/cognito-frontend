@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 
-import { useValidEmail, useValidPassword, useValidUsername } from '../../hooks/useAuthHooks'
-import { Email, Password, Username } from '../../components/authComponents'
+import { useValidEmail, useValidPassword } from '../../hooks/useAuthHooks'
+import { Email, Password } from '../../components/authComponents'
 
 import { AuthContext } from '../../contexts/authContext'
 
@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 const SignIn: React.FunctionComponent<{}> = () => {
   const classes = useStyles()
 
-  const { username, setUsername, usernameIsValid } = useValidUsername('')
   const { password, setPassword, passwordIsValid } = useValidPassword('')
   const [error, setError] = useState('')
   const { email, setEmail, emailIsValid } = useValidEmail('')
@@ -46,8 +45,7 @@ const SignIn: React.FunctionComponent<{}> = () => {
       const res = await authContext.signInWithEmail(email, password)
       if(res?.statusCode == 200){
         history.push('UsersList')
-      }else{
-        debugger
+      } else{
         setError(res.response)
       }
     } catch (err: any) {

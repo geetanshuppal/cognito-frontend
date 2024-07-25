@@ -52,11 +52,11 @@ const SignUp: React.FunctionComponent<{}> = () => {
   const signInClicked = async () => {
     try {
       const res = await authContext.signUpWithEmail(username, email, password)
-      if(res.statusCode == 422){
-        setError(res?.response?.message|| "something went wrong!!")
+      if(res.statusCode == 200){
+        setCreated(true)
         return;
       }
-      setCreated(true)
+      setError(res?.response?.message || "something went wrong!!")
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message)

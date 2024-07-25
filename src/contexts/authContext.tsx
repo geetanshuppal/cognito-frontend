@@ -44,8 +44,6 @@ export const AuthIsNotSignedIn: React.FunctionComponent = ({ children }) => {
 
 const AuthProvider: React.FunctionComponent = ({ children }) => {
   const [authStatus, setAuthStatus] = useState(AuthStatus.Loading)
-  const [sessionInfo, setSessionInfo] = useState({})
-  const [attrInfo, setAttrInfo] = useState([])
 
   useEffect(() => {
     setAuthStatus(AuthStatus.SignedOut)
@@ -96,8 +94,6 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   const state: IAuth = {
     authStatus,
-    sessionInfo,
-    attrInfo,
     signUpWithEmail,
     signInWithEmail,
     verifyCode,

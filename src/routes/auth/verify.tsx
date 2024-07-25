@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 
-import { useValidCode, useValidEmail, useValidUsername } from '../../hooks/useAuthHooks'
-import { Code, Email, Username } from '../../components/authComponents'
+import { useValidCode, useValidEmail } from '../../hooks/useAuthHooks'
+import { Code, Email } from '../../components/authComponents'
 
 import { AuthContext } from '../../contexts/authContext'
 
@@ -42,8 +42,12 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
 
   const sendClicked = async () => {
     try {
-      await authContext.verifyCode(email, code)
-      history.push('signin')
+      const res = await authContext.verifyCode(email, code)
+      if(res.statusCode == 200){
+        history.push('signin')
+        return;
+      }
+      setError(res?.response?.message || "something went wrong!!")
     } catch (err) {
       setError('Invalid Code')
     }
