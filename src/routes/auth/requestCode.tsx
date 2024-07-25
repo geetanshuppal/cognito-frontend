@@ -81,7 +81,7 @@ export default function RequestCode() {
           </Box>
           <Box m={1}>
             <Button disabled={isValid} color="primary" variant="contained" onClick={sendCodeClicked}>
-              Send Code
+              Verify Code
             </Button>
           </Box>
         </Grid>

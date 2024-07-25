@@ -60,7 +60,7 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
           <Grid container direction="column" justify="center" alignItems="center">
             {/* Title */}
             <Box m={2}>
-              <Typography variant="h3">Send Code</Typography>
+              <Typography variant="h3">Verify Code</Typography>
             </Box>
 
             {/* Sign In Form */}
@@ -71,9 +71,6 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
               <Code codeIsValid={codeIsValid} setCode={setCode} />
               <Grid container direction="row" justify="flex-start" alignItems="center">
                 <Box onClick={passwordResetClicked} mt={2}>
-                  <Typography className={classes.hover} variant="body2">
-                    Resend Code
-                  </Typography>
                   <Box mt={2}>
                     <Typography color="error" variant="body2">
                       {error}

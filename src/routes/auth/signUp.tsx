@@ -107,12 +107,12 @@ const SignUp: React.FunctionComponent<{}> = () => {
 
   const accountCreated = (
     <>
-      <Typography variant="h5">{`Created ${username} account`}</Typography>
-      <Typography variant="h6">{`Verfiy Code sent to ${email}`}</Typography>
+      <Typography  align="center" variant="h5">{`Created ${username} account`}</Typography>
+      <Typography  align="center"  variant="h6">{`Verfiy Code sent to ${email}`}</Typography>
 
       <Box m={4}>
         <Button onClick={() => history.push('/verify')} color="primary" variant="contained">
-          Send Code
+          Verify Code
         </Button>
       </Box>
     </>
