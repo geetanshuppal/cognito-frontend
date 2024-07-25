@@ -16,7 +16,6 @@ export interface IAuth {
   signOut?: any
   verifyCode?: any
   getSession?: any
-  sendCode?: any
   forgotPassword?: any
   changePassword?: any
   getAttributes?: any

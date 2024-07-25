@@ -13,6 +13,7 @@ import { useValidEmail, useValidPassword, useValidUsername } from '../../hooks/u
 import { Email, Password, Username } from '../../components/authComponents'
 
 import { AuthContext } from '../../contexts/authContext'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +29,7 @@ const SignUp: React.FunctionComponent<{}> = () => {
   const { username, setUsername, usernameIsValid } = useValidUsername('')
   const [error, setError] = useState('')
   const [created, setCreated] = useState(false)
-
+  const [loading, setLoading] = useState(false)
   const {
     password: passwordConfirm,
     setPassword: setPasswordConfirm,
@@ -51,13 +52,17 @@ const SignUp: React.FunctionComponent<{}> = () => {
 
   const signInClicked = async () => {
     try {
+      setLoading(true);
       const res = await authContext.signUpWithEmail(username, email, password)
       if(res.statusCode == 200){
         setCreated(true)
+        setLoading(false);
         return;
       }
       setError(res?.response?.message || "something went wrong!!")
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       if (err instanceof Error) {
         setError(err.message)
       }
@@ -97,7 +102,7 @@ const SignUp: React.FunctionComponent<{}> = () => {
           </Box>
           <Box m={1}>
             <Button disabled={isValid} color="primary" variant="contained" onClick={signInClicked}>
-              Sign Up
+            {loading && <CircularProgress size={15} color="secondary" />} Sign Up
             </Button>
           </Box>
         </Grid>
