@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-
-import * as cognito from '../libs/cognito'
 import { signin, signup, verifyEmail } from '../services/apiService';
 
 export enum AuthStatus {
@@ -50,25 +48,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
   const [attrInfo, setAttrInfo] = useState([])
 
   useEffect(() => {
-    // async function getSessionInfo() {
-    //   try {
-    //     const session: any = await getSession()
-    //     setSessionInfo({
-    //       accessToken: session.accessToken.jwtToken,
-    //       refreshToken: session.refreshToken.token,
-    //     })
-    //     window.localStorage.setItem('accessToken', `${session.accessToken.jwtToken}`)
-    //     window.localStorage.setItem('refreshToken', `${session.refreshToken.token}`)
-    //     await setAttribute({ Name: 'website', Value: 'https://github.com/dbroadhurst/aws-cognito-react' })
-    //     const attr: any = await getAttributes()
-    //     setAttrInfo(attr)
-    //     setAuthStatus(AuthStatus.SignedIn)
-    //   } catch (err) {
-    //     setAuthStatus(AuthStatus.SignedOut)
-    //   }
-    // }
     setAuthStatus(AuthStatus.SignedOut)
-    // // getSessionInfo()
   }, [setAuthStatus, authStatus])
 
   if (authStatus === AuthStatus.Loading) {
