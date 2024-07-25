@@ -43,8 +43,13 @@ const SignIn: React.FunctionComponent<{}> = () => {
 
   const signInClicked = async () => {
     try {
-      await authContext.signInWithEmail(email, password)
-      history.push('UsersList')
+      const res = await authContext.signInWithEmail(email, password)
+      if(res?.statusCode == 200){
+        history.push('UsersList')
+      }else{
+        debugger
+        setError(res.response)
+      }
     } catch (err: any) {
       if (err.code === 'UserNotConfirmedException') {
         history.push('verify')

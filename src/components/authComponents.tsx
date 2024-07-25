@@ -29,7 +29,7 @@ export const Password: React.FunctionComponent<{
       fullWidth
       type="password"
       variant="outlined"
-      label={passwordIsValid ? label : 'Minimum 8 characters'}
+      label={passwordIsValid ? label : 'Invalid Password '}
       error={!passwordIsValid}
       onChange={(evt: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPassword(evt.target.value)
