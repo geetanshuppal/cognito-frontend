@@ -47,6 +47,7 @@ const VerifyCode: React.FunctionComponent<{}> = () => {
     try {
       setLoading(true);
       const res = await authContext.verifyCode(email, code)
+      debugger
       if(res.statusCode == 200){
         history.push('signin')
         setLoading(false);

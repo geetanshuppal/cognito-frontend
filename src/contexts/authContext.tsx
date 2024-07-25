@@ -55,7 +55,6 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
   async function signInWithEmail(email: string, password: string) {
     try {
       const res = await signin({email, password})
-      console.log("signInResponse", res);
       if(res.statusCode==200){
         window.localStorage.setItem('accessToken', `${res?.response?.token?.accessToken}`)
         window.localStorage.setItem('refreshToken', `${res?.response?.session?.refreshToken}`)
@@ -88,7 +87,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   async function verifyCode(email: string, codeEmailVerify: string) {
     try {
-      await verifyEmail({email, codeEmailVerify})
+      const res = await verifyEmail({email, codeEmailVerify})
+      return res;
     } catch (err) {
       throw err
     }

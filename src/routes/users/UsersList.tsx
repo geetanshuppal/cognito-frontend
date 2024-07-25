@@ -72,7 +72,7 @@ const UsersList: React.FunctionComponent<{}> = () => {
                                             <TableCell>{user.email}</TableCell>
                                             <TableCell>{user.UserStatus}</TableCell>
                                             <TableCell>
-                                                <Button variant="contained" disabled={isAdminUser?true:false} color="primary">
+                                                <Button variant="contained" disabled={!isAdminUser} color="primary">
                                                     Edit
                                                 </Button>
                                             </TableCell>
