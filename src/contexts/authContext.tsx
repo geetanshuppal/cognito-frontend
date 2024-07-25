@@ -58,7 +58,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
       if(res.statusCode==200){
         window.localStorage.setItem('accessToken', `${res?.response?.token?.accessToken}`)
         window.localStorage.setItem('refreshToken', `${res?.response?.token?.refreshToken}`)
-        window.localStorage.setItem('isAdmin', `${res?.response?.scope.includes('Admins') ? 'true' :'false'}`)
+        window.localStorage.setItem('isAdmin', `${res?.response?.scope.includes('Admins') ? 'true' :''}`)
         setAuthStatus(AuthStatus.SignedIn)
       }
       return res;
