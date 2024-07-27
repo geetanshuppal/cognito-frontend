@@ -22,7 +22,6 @@ const UsersList: React.FunctionComponent<{}> = () => {
     if (error) {
         return <div>{error}</div>;
     }
-    const isAdminUser = localStorage.getItem("isAdmin");
 
     const onLogoutCLicked = () => {
         history.push("/signin");
@@ -72,7 +71,7 @@ const UsersList: React.FunctionComponent<{}> = () => {
                                             <TableCell>{user.email}</TableCell>
                                             <TableCell>{user.UserStatus}</TableCell>
                                             <TableCell>
-                                                <Button variant="contained" disabled={!isAdminUser} color="primary">
+                                                <Button variant="contained" disabled={!authContext?.isAdmin} color="primary">
                                                     Edit
                                                 </Button>
                                             </TableCell>

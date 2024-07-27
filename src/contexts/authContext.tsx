@@ -15,7 +15,7 @@ export interface IAuth {
   signUpWithEmail?: any
   signOut?: any
   verifyCode?: any
-  getSession?: any
+  isAdmin?: any
   forgotPassword?: any
   changePassword?: any
   getAttributes?: any
@@ -42,7 +42,9 @@ export const AuthIsNotSignedIn: React.FunctionComponent = ({ children }) => {
 }
 
 const AuthProvider: React.FunctionComponent = ({ children }) => {
-  const [authStatus, setAuthStatus] = useState(AuthStatus.Loading)
+  const [authStatus, setAuthStatus] = useState(AuthStatus.Loading);
+  const [isAdmin, setIsAdmin] = useState('');
+
 
   useEffect(() => {
     setAuthStatus(AuthStatus.SignedOut)
@@ -58,7 +60,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
       if(res.statusCode==200){
         window.localStorage.setItem('accessToken', `${res?.response?.token?.accessToken}`)
         window.localStorage.setItem('refreshToken', `${res?.response?.token?.refreshToken}`)
-        window.localStorage.setItem('isAdmin', `${res?.response?.scope.includes('Admins') ? 'true' :''}`)
+        const admin = res?.response?.scope.includes('Admins') ? 'true' :'';
+        setIsAdmin(admin)
         setAuthStatus(AuthStatus.SignedIn)
       }
       return res;
@@ -80,7 +83,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
   function signOut() {
     window.localStorage.setItem('accessToken', ``)
     window.localStorage.setItem('refreshToken', ``)
-    window.localStorage.setItem('isAdmin','');
+    // window.localSto/rage.setItem('isAdmin','');
+    setIsAdmin('');
     setAuthStatus(AuthStatus.SignedOut)
     
   }
@@ -96,6 +100,7 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
   const state: IAuth = {
     authStatus,
+    isAdmin,
     signUpWithEmail,
     signInWithEmail,
     verifyCode,
